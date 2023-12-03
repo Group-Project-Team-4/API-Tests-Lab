@@ -36,3 +36,75 @@ The web application supports the following 5 API calls that need to be tested:
 
 ### Testing Strategy
 For this lab, there are both provided Python scripts to test the API, as well as instructions for testing the API manually using the Postman application. The testing strategy of the scripts is to make a request, supply necessary data if necessary, and then test the response against multiple conditions. In the case of testing things like POST or PUT requests, the API's response to the request contains the data as it appears in the database (if the request was successful), so there is no need to follow up those requests with GET requests to make sure the changes "went through" successfully.
+
+# Postman Tutorial
+
+This will go over the basic usage of Postman when testing Web APIs and RESTful services. To dive deeper into Postman see their [official documentation](https://learning.postman.com/docs/introduction/overview/).
+
+### Prerequisites
+Before starting the tutorial, go to our [Sample Web Application](https://github.com/Group-Project-Team-4/Web-App) and clone it. Then follow the instructions in the README to start the local web server. We will be testing this applications API throughout this tutorial.
+
+If you'd like to know more about the Sample Web Applications  API, you can find the documentation in the [API Overview](https://github.com/Group-Project-Team-4/Web-App/blob/main/api-overview.md).
+
+### 1. Install Postman
+Install Postman from their [downloads page](https://www.postman.com/downloads/)
+
+### 2. Send your first request
+The easiest type of request to start with is a `GET` request as it will only retrieve information.
+
+If you haven't already, go clone the [Sample Web Application](https://github.com/Group-Project-Team-4/Web-App) and start the local web server before continuing.
+
+For the requests we will use the following URL:
+```
+http://localhost:5000/api/products
+```
+
+To send the request do the following:
+1. Set the HTTP request method to `GET`
+2. Paste the above API URL in the request URL input
+3. Click the send button
+4. Verify the API responded with the `200 OK` status code
+5. Verify the API responded with a JSON object containing a list of all the products
+
+![postman-1](https://github.com/Group-Project-Team-4/API-Tests-Lab/assets/54220748/782cf508-faef-46a7-ba2d-4f952b0bb12d)
+### 3. Send a POST request
+POST requests are used to send data to the server in the body of the request and are typically used to create a new resource. In this case, we will be creating a new product in the database.
+
+First create a new tab in Postman for the new request.
+
+![postman-2](https://github.com/Group-Project-Team-4/API-Tests-Lab/assets/54220748/a3e41148-a39a-4ef8-8d86-93ed09f65d9a)
+
+Next, in the new tab you created:
+1. Set the HTTP request method to `POST`
+2. Paste the same URL for the last request in the request URL input (`http://localhost:5000/api/products`)
+3. Click on the Body section of the request (under the URL input)
+4. Click the raw option
+5. Select *JSON* from the dropdown menu
+
+![postman-3](https://github.com/Group-Project-Team-4/API-Tests-Lab/assets/54220748/74cabc67-dd12-4716-ac07-42ccdbd5ac6a)
+
+Next paste in the JSON data for the new product in the body text area
+
+```json
+{
+	"product": {
+		"name": "Running Shoes",
+		"price": 49.99,
+		"description": "Comfortable running shoes.",
+		"quantity": 10,
+		"category_id": 3
+	}
+}
+```
+
+![postman-4](https://github.com/Group-Project-Team-4/API-Tests-Lab/assets/54220748/588baa4b-26b6-4f89-9716-8efe86c8036b)
+
+Finally, send the request and verify the product was created:
+1. Click the send button
+2. Verify the HTTP response status code is `201 Created`
+3. Verify the created product was returned in the response
+
+![postman-5](https://github.com/Group-Project-Team-4/API-Tests-Lab/assets/54220748/11909770-64fb-497d-81bf-66a3aa2c91f8)
+
+To learn more on your own, go to the [API Documentation](https://github.com/Group-Project-Team-4/Web-App/blob/main/api-overview.md) and try to update the product you created with a `PUT` request. Then delete the product with a `DELETE` request.
+
